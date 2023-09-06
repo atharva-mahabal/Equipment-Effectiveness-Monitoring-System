@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../public/style.css">
+  <title>Customer Data</title>
+  <style>
+    /* Styling for the popup container */
+    /* Styling for the popup container */
+    .popup-container {
+      display: none;
+      /* Initially hidden */
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
+
+    /* Styling for the popup content */
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      display: grid;
+      justify-content: center;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      position: relative;
+      width: 80%;
+      max-width: 440px;
+    }
+
+    /* Styling for the close button */
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 28px;
+      font-weight: bold;
+
+      color: red;
+    }
+
+    .close-button:hover {
+      color: green;
+      font-size: 32px;
+    }
+
+    /* Styling for the form inputs */
+    #name {
+      margin: 2px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    #btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="padding: 10px; width: 790px;">
+    <span> Customer Data</span>
+    <button style="float: right;" id="openPopupButton">Add</button>
+  </div>
+  <div id="popup" class="popup-container">
+    <!-- Popup content -->
+    <div class="popup-content">
+      <!-- Close button -->
+      <span id="closeButton" class="close-button">×</span>
+      <h2>Create a New Record</h2>
+      <form action="/insert" method="post">
+        <table>
+          <tr>
+            <td><label for="customerKey">Customer Key:</label></td>
+            <td><input type="number" id="name" name="customerKey" required><br></td>
+          </tr>
+          <tr>
+            <td><label for="prefix">Prefix:</label></td>
+            <td><input type="text" id="name" name="prefix"></td>
+          </tr>
+          <tr>
+            <td><label for="firstName">First Name:</label></td>
+            <td><input type="text" id="name" name="firstName" required></td>
+          </tr>
+          <tr>
+            <td><label for="lastName">Last Name:</label></td>
+            <td><input type="text" id="name" name="lastName" required><br></td>
+          </tr>
+          <tr>
+            <td><label for="birthDate">Birth Date:</label></td>
+            <td><input type="date" id="name" name="birthDate" required></td>
+          </tr>
+          <tr>
+            <td><label for="maritalStatus">Marital Status:</label></td>
+            <td><input type="text" id="name" name="maritalStatus"></td>
+          </tr>
+          <tr>
+            <td><label for="gender">Gender:</label></td>
+            <td><input type="text" id="name" name="gender"></td>
+          </tr>
+          <tr>
+            <td><label for="emailAddress">Email Address:</label></td>
+            <td><input type="email" id="name" name="emailAddress"></td>
+          </tr>
+          <tr>
+            <td><label for="annualIncome">Annual Income:</label></td>
+            <td><input type="number" id="name" name="annualIncome"></td>
+          </tr>
+          <tr>
+            <td><label for="totalChildren">Total Children:</label></td>
+            <td><input type="number" id="name" name="totalChildren"></td>
+          </tr>
+          <tr>
+            <td><label for="educationLevel">Education Level:</label></td>
+            <td><input type="text" id="name" name="educationLevel"></td>
+          </tr>
+          <tr>
+            <td><label for="occupation">Occupation:</label></td>
+            <td><input type="text" id="name" name="occupation"></td>
+          </tr>
+          <tr>
+            <td><label for="homeOwner">Home Owner:</label></td>
+            <td><input type="text" id="name" name="homeOwner"></td>
+          </tr>
+          <tr>
+            <td colspan="2"><button type="submit" id="btn">Insert Data</button></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <table border="1">
+    <tr>
+      <th>Customer Id</th>
+      <th>Prefix</th>
+      <th>FirstName</th>
+      <th>LastName</th>
+      <th>BirthDate</th>
+      <th>MaritalStatus</th>
+      <th>Update</th>
+      <th>Delete</th>
+      <!-- Add more columns as needed -->
+    </tr>
+    <% data.forEach((row)=> { %>
+      <tr>
+        <td>
+          <%= row.CustomerKey %>
+        </td>
+        <td>
+          <%= row.Prefix %>
+        </td>
+        <td>
+          <%= row.FirstName %>
+        </td>
+        <td>
+          <%= row.LastName %>
+        </td>
+        <td>
+          <%= row.BirthDate %>
+        </td>
+        <td>
+          <%= row.MaritalStatus %>
+        </td>
+        <td>
+          <form action="/update/<%= row.CustomerKey %>" method="post">
+            <input type="text" name="newName" placeholder="New Name">
+            <!-- Add input fields for other columns as needed -->
+            <button type="submit">Update</button>
+          </form>
+        </td>
+        <td>
+          <form action="/delete/<%= row.CustomerKey %>" method="post">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+        <!-- Display other columns as needed -->
+      </tr>
+      <% }); %>
+  </table>
+</body>
+<script>
+  const openPopupButton = document.getElementById('openPopupButton');
+  const popup = document.getElementById('popup');
+  const closeButton = document.getElementById('closeButton');
+
+  openPopupButton.addEventListener('click', () => {
+    popup.style.display = 'flex';
+  });
+
+  closeButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
+</script>
+
+</html>
