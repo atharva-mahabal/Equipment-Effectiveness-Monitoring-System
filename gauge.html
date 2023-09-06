@@ -59,20 +59,55 @@
         });
     }
 
-    // Example usage: Animate the gauges from 0% to different values
-    const targetValues = [25, 65, 10, 90]; // Array of target values for each gauge
-    const animationInterval = 1000; // Animation speed in milliseconds
+    // Separate variables for each gauge's target value
+    const targetValueOEE = 25; // Target value for OEE gauge
+    const targetValuePerformance = 65; // Target value for Performance gauge
+    const targetValueQuality = 10; // Target value for Quality gauge
+    const targetValueAvailability = 90; // Target value for Availability gauge
+
+    const animationInterval = 100; // Animation speed in milliseconds
 
     function animateGauges() {
-        targetValues.forEach((targetValue, index) => {
-            if (parseInt(gaugeValues[index].textContent) < targetValue) {
-                gaugeValues[index].textContent = parseInt(gaugeValues[index].textContent) + 1;
-                setGaugeValues([parseInt(gaugeValues[0].textContent), parseInt(gaugeValues[1].textContent), parseInt(gaugeValues[2].textContent), parseInt(gaugeValues[3].textContent)]);
-                setTimeout(animateGauges, animationInterval);
-            }
-        });
+        // Check and update OEE gauge
+        if (parseInt(gaugeValues[0].textContent) < targetValueOEE) {
+            gaugeValues[0].textContent = parseInt(gaugeValues[0].textContent) + 1;
+        }
+
+        // Check and update Performance gauge
+        if (parseInt(gaugeValues[1].textContent) < targetValuePerformance) {
+            gaugeValues[1].textContent = parseInt(gaugeValues[1].textContent) + 1;
+        }
+
+        // Check and update Quality gauge
+        if (parseInt(gaugeValues[2].textContent) < targetValueQuality) {
+            gaugeValues[2].textContent = parseInt(gaugeValues[2].textContent) + 1;
+        }
+
+        // Check and update Availability gauge
+        if (parseInt(gaugeValues[3].textContent) < targetValueAvailability) {
+            gaugeValues[3].textContent = parseInt(gaugeValues[3].textContent) + 1;
+        }
+
+        // Update the gauge fill and values
+        setGaugeValues([
+            parseInt(gaugeValues[0].textContent),
+            parseInt(gaugeValues[1].textContent),
+            parseInt(gaugeValues[2].textContent),
+            parseInt(gaugeValues[3].textContent),
+        ]);
+
+        // Schedule the next animation frame if needed
+        if (
+            parseInt(gaugeValues[0].textContent) < targetValueOEE ||
+            parseInt(gaugeValues[1].textContent) < targetValuePerformance ||
+            parseInt(gaugeValues[2].textContent) < targetValueQuality ||
+            parseInt(gaugeValues[3].textContent) < targetValueAvailability
+        ) {
+            setTimeout(animateGauges, animationInterval);
+        }
     }
 
     animateGauges();
+
 </script>
 </html>
