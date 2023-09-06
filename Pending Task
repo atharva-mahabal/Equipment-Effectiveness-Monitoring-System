@@ -1,0 +1,35 @@
+
+Atharva
+OEE ---> formula 
+EXPORT ---> to excel 
+we will try to avoid import from excel 
+Trend s to show on dashboard using JS 
+
+
+Minor study on below points 
+KEPWARE CONNECTIVITY 
+NODE.JS 
+GITHUB 
+
+
+SHYAM 
+Main dashboard has been made upgrade if possible
+COnfiguration 
+CURD opperation change to equipmnet config 
+check connectivity of equipment with kepware on this page 
+we will create a button which will connect and disconnect equipment from kepware 
+{code }--->on click kep conection on off 
+
+
+
+
+TBD 
+we have main 5 tiles 
+
+1)Tools--pending
+2)COnfig --SHyam 
+3)KPI --Atharva
+4)OPperation --pending 
+5)Reports--Atharva(Export) and Shyam 
+6) Login,check securtity, forget, register, on prem or cloud (TBD).
+
