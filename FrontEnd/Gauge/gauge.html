@@ -1,45 +1,56 @@
+<!DOCTYPE html>
 <html>
-    <div class="gauge">
-        <div class="gauge-needle"></div>
-      </div>
-      <input type="range" min="0" max="100" value="0" id="gauge-slider">
-      
+<head>
+<style>
+  .gauge {
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    position: relative;
+  }
 
-      <head>
-        <style>
-            .gauge {
-  width: 200px;
-  height: 200px;
-  background-color: #f0f0f0;
-  border-radius: 50%;
-  position: relative;
-}
+  .gauge-needle {
+    width: 2px;
+    height: 90px;
+    background-color: red;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    transform: translateX(-1px) rotate(-88deg);
+    transition: transform 0.5s ease-in-out;
+  }
 
-.gauge-needle {
-  width: 2px;
-  height: 90px;
-  background-color: red;
-  position: absolute;
-  top: 0%;
-  left: 50%;
-  transform-origin: 50% 100%; /* Pivot at the bottom center */
-  transform: translateX(-1px) rotate(-88deg); /* Start at 0 degrees on the left */
-  transition: transform 0.5s ease-in-out;
-}
+  .gauge-fill {
+    width: 0; /* Initial width is 0, it will fill as the needle angle increases */
+    height: 50%;
+    background-color: rgba(0, 128, 0, 0.5); /* Transparent green color (50% opacity) */
+    position: absolute;
+    top: 0; /* Position at the top of the gauge */
+    left: 0;
+    transform-origin: 0% 50%; /* Pivot at the left-center */
+    transition: width 0.5s ease-in-out; /* Transition the width property */
+  }
+</style>
+</head>
+<body>
+<div class="gauge">
+  <div class="gauge-needle"></div>
+  <div class="gauge-fill"></div>
+</div>
+<input type="range" min="0" max="100" value="0" id="gauge-slider">
 
-
-        </style>
-      </head>
-      <body>
-
-      </body>
 <script>
-    const gaugeNeedle = document.querySelector('.gauge-needle');
+const gaugeFill = document.querySelector('.gauge-fill');
+const gaugeNeedle = document.querySelector('.gauge-needle');
 const slider = document.getElementById('gauge-slider');
 
 function updateGauge(value) {
-  const angle =( (value / 100) * 180)-88; // Assuming the gauge can go from 0 to 100
+  const angle = ((value / 100) * 180) - 88;
   gaugeNeedle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+  gaugeFill.style.width = `${value}%`; // Set the width of the gauge-fill based on the value
 }
 
 slider.addEventListener('input', (event) => {
@@ -48,9 +59,7 @@ slider.addEventListener('input', (event) => {
 });
 
 // Example usage:
-// You can also call updateGauge(value) programmatically to change the needle angle.
-
-</script>    
+// You can also call updateGauge(value) programmatically to change the needle angle and fill the gauge accordingly.
+</script>
+</body>
 </html>
-
-  
