@@ -24,14 +24,13 @@
   }
 
   .gauge-fill {
-    width: 0; /* Initial width is 0, it will fill as the needle angle increases */
+    width: 100%;
     height: 50%;
-    background-color: rgba(0, 128, 0, 0.5); /* Transparent green color (50% opacity) */
     position: absolute;
-    top: 0; /* Position at the top of the gauge */
+    bottom: 0;
     left: 0;
-    transform-origin: 0% 50%; /* Pivot at the left-center */
-    transition: width 0.5s ease-in-out; /* Transition the width property */
+    transform-origin: 50% 100%;
+    transition: height 0.5s ease-in-out;
   }
 </style>
 </head>
@@ -50,7 +49,16 @@ const slider = document.getElementById('gauge-slider');
 function updateGauge(value) {
   const angle = ((value / 100) * 180) - 88;
   gaugeNeedle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
-  gaugeFill.style.width = `${value}%`; // Set the width of the gauge-fill based on the value
+
+  if (value >= 0 && value <= 20) {
+    gaugeFill.style.backgroundColor = 'rgba(255, 0, 0, 0.5)'; // Transparent red
+  } else if (value > 20 && value <= 60) {
+    gaugeFill.style.backgroundColor = 'rgba(255, 165, 0, 0.5)'; // Transparent orange
+  } else if (value > 60 && value <= 100) {
+    gaugeFill.style.backgroundColor = 'rgba(0, 128, 0, 0.5)'; // Transparent green
+  }
+
+  gaugeFill.style.height = `${value}%`;
 }
 
 slider.addEventListener('input', (event) => {
