@@ -1,0 +1,56 @@
+<html>
+    <div class="gauge">
+        <div class="gauge-needle"></div>
+      </div>
+      <input type="range" min="0" max="100" value="0" id="gauge-slider">
+      
+
+      <head>
+        <style>
+            .gauge {
+  width: 200px;
+  height: 200px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  position: relative;
+}
+
+.gauge-needle {
+  width: 2px;
+  height: 90px;
+  background-color: red;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform-origin: 50% 100%; /* Pivot at the bottom center */
+  transform: translateX(-1px) rotate(-88deg); /* Start at 0 degrees on the left */
+  transition: transform 0.5s ease-in-out;
+}
+
+
+        </style>
+      </head>
+      <body>
+
+      </body>
+<script>
+    const gaugeNeedle = document.querySelector('.gauge-needle');
+const slider = document.getElementById('gauge-slider');
+
+function updateGauge(value) {
+  const angle =( (value / 100) * 180)-88; // Assuming the gauge can go from 0 to 100
+  gaugeNeedle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+}
+
+slider.addEventListener('input', (event) => {
+  const value = event.target.value;
+  updateGauge(value);
+});
+
+// Example usage:
+// You can also call updateGauge(value) programmatically to change the needle angle.
+
+</script>    
+</html>
+
+  
